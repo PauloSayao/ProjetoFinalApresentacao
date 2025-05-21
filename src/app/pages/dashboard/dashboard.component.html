@@ -1,0 +1,40 @@
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <h2>TruffleSite</h2>
+    <nav>
+      <ul>
+        <li><button (click)="ToHome()">Início</button></li>
+        <li><button (click)="ToOrder()" >Pedidos</button></li>
+        <li><button (click)="ToConfiguration()">Configurações</button></li>
+        <li><button (click)="logout()"> Logout</button></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header>
+      <h1>Bem-vindo de volta!</h1>
+      <p>Resumo do seu painel hoje.</p>
+    </header>
+
+    <section class="pedidos">
+      <h2>Pedidos Recebidos</h2>
+
+      <div *ngIf="pedidos.length === 0">
+        <p>Nenhum pedido encontrado.</p>
+      </div>
+
+      <div class="pedidoslist" *ngFor="let pedido of pedidos">
+        <h3>Pedido</h3>
+        <ul>
+          <li *ngFor="let p of pedido.produtos">
+            {{ p.name }} - {{ p.quantity }} x {{ p.price | currency }}
+          </li>
+        </ul>
+        <button (click)="removerPedido(pedido.id)">Entregue</button>
+      </div>
+
+      <button (click)="limparPedidos()">Limpar Todos os Pedidos</button>
+    </section>
+  </main>
+</div>
