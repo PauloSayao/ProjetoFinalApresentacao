@@ -1,14 +1,16 @@
 // Variáveis
-$bg-color: #f8f1e7;
-$primary: #2C3E50;
-$accent: #A93226;
-$font-main: 'Playfair Display', serif;
-
+$bg-color: #F5EDE0; 
+$primary: #5D4037; 
+$accent: #8D6E63;  
+$highlight: #D7CCC8; 
+$font-main: "Cormorant Garamond", serif;
+$font-secondary: "Cabin", sans-serif; 
 // Reset base
 body {
   margin: 0;
   font-family: $font-main;
   background-color: $bg-color;
+  background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
   display: flex;
   align-items: center;
   justify-content: center;
