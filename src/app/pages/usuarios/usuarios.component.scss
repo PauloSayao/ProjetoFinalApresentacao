@@ -20,6 +20,7 @@ body {
   color: white;
   text-align: center;
   padding: 0 0 20px;
+   font-family: $font-main;
 
   .logo {
     max-height: 60px;
@@ -39,7 +40,13 @@ body {
   gap: 30px;
   padding: 0 40px;
 }
-
+.div{
+  background: $bg-color;
+   font-family: $font-main;
+}
+.products-section{
+  background: $bg-color;
+}
 .product-card {
   background-color: white;
   border: 2px solid $accent;

@@ -104,6 +104,22 @@ $font-secondary: "Cabin", sans-serif;
   }
 }
 
+.pagamento {
+  margin: 20px 0;
+  p {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  label {
+    margin-right: 20px;
+    cursor: pointer;
+    input {
+      margin-right: 5px;
+    }
+  }
+}
+
 .carrinho {
   background-color: $bg-color;
   color: $primary;
@@ -205,7 +221,7 @@ $font-secondary: "Cabin", sans-serif;
     padding: 0.5rem;
 
     div[ng-reflect-ng-for-of] {
-      flex-direction: column;
+      flex-direction: row;
       align-items: flex-start;
 
       img {
@@ -234,7 +250,7 @@ $font-secondary: "Cabin", sans-serif;
 
 @media (max-width: 500px) {
   .item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
 
     .info {
@@ -251,4 +267,7 @@ $font-secondary: "Cabin", sans-serif;
       margin-top: 0.5rem;
     }
   }
+}
+@media (max-width: 500px){
+  .item{}
 }

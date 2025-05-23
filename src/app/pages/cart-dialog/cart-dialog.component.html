@@ -14,6 +14,17 @@
 
 
   <p><strong>Total:</strong> R$ {{ total | number:'1.2-2' }}</p>
+  <div class="pagamento">
+  <p><strong>Forma de pagamento:</strong></p>
+  <label>
+    <input type="radio" name="pagamento" value="Dinheiro" [(ngModel)]="metodoPagamento" />
+    Dinheiro
+  </label>
+  <label>
+    <input type="radio" name="pagamento" value="Pix" [(ngModel)]="metodoPagamento" />
+    Pix
+  </label>
+</div>
   <div class="botoes-final">
     <button (click)="clear()">Esvaziar</button>
     <button class="finalizar" (click)="finalizarCompra()">Finalizar Compra</button>

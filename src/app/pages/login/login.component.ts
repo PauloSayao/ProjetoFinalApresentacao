@@ -4,10 +4,14 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxMaskDirective, MatSnackBarModule],
+  providers: [provideNgxMask()],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -24,20 +28,21 @@ export class LoginComponent {
   registerEmail = '';
   registerPassword = '';
   registerTelephone = '';
+  confirmPassword = '';
   consentLGPD = false;
 
   constructor(
     private authService: AuthService,
     private http: HttpClient,
-    private router: Router
-  ) {}
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { }
 
   toggleMode() {
     this.isRegistering = !this.isRegistering;
   }
 
   login() {
-
     this.http
       .post<any>('http://localhost:3001/login', {
         name: this.name,
@@ -55,15 +60,82 @@ export class LoginComponent {
         },
 
         error: (err) => {
-          alert(err.error.message || 'Erro ao fazer login.');
-        },
-
-      });
+          this.snackBar.open(err.error.message || 'Erro ao fazer login.', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-error']
+          });
+        }
+      })
   }
 
   register() {
     if (!this.consentLGPD) {
-      alert('Você deve aceitar a política de privacidade (LGPD).');
+      this.snackBar.open('Você deve aceitar a política de privacidade (LGPD).', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    if (!this.registerName) {
+      this.snackBar.open('Usuário é obrigatório.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+    if (!this.fullName) {
+      this.snackBar.open('Nome completo é obrigatório.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+    if (!this.registerTelephone) {
+      this.snackBar.open('Telefone é obrigatório.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    if (!this.registerEmail.includes('@')) {
+      this.snackBar.open('E-mail inválido.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    if (!this.registerPassword) {
+      this.snackBar.open('Senha é obrigatória.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    if (this.registerPassword !== this.confirmPassword) {
+      this.snackBar.open('As senhas não são iguais.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      });
       return;
     }
 
@@ -77,15 +149,24 @@ export class LoginComponent {
       })
 
       .subscribe({
-        next: (res) => {
-          alert('Cadastro realizado com sucesso!');
-          this.toggleMode(); // volta para login
+        next: () => {
+          this.snackBar.open('Cadastro realizado com sucesso!', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-success']
+          });
+          this.toggleMode();
         },
-
         error: (err) => {
-          alert(err.error.message || 'Erro ao cadastrar.');
+          this.snackBar.open(err.error.message || 'Erro ao cadastrar.', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-error']
+          });
         },
-
       });
+
   }
 }
