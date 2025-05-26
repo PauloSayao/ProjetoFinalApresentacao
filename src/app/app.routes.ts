@@ -7,6 +7,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/usuarios.guard';
 import { ConfiguracaoComponent } from './pages/configuracao/configuracao.component';
+import { RelatorioComponent } from './pages/relatorio/relatorio.component';
 
 export const routes: Routes = [
   {
@@ -44,7 +45,12 @@ export const routes: Routes = [
     component: ConfiguracaoComponent,
     canActivate: [AdminGuard],
   },
-  
+  {
+    path: 'relatorio',
+    component: RelatorioComponent,
+    canActivate: [AdminGuard],
+  },
+
   {
     path: '**',
     redirectTo: 'usuarios',

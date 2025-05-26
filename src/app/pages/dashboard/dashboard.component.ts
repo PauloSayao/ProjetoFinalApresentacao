@@ -51,6 +51,9 @@ export class DashboardComponent implements OnInit {
   ToConfiguration(){
     this.router.navigate(['/configuracao']);
   }
+  ToRelatorio(){
+    this.router.navigate(['/relatorio']);
+  }
 }
 
 

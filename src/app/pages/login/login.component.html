@@ -20,61 +20,67 @@
       <div class="form-section">
         <h2>Entrar na sua conta</h2>
 
-        <form (ngSubmit)="login()">
-          <input type="text" [(ngModel)]="name" name="name" placeholder="Usuário" required>
-          <input type="password" [(ngModel)]="password" name="password" placeholder="Senha" required>
+        <form #form="ngForm" (ngSubmit)="login()">
+          <input type="text" [(ngModel)]="name" name="name" required #nameRef="ngModel" placeholder="Usuário" />
+          <div *ngIf="nameRef.invalid && nameRef.touched" class="error">Usuário é obrigatório.</div>
+
+          <input type="password" [(ngModel)]="password" name="password" required #passwordRef="ngModel" placeholder="Senha" />
+          <div *ngIf="passwordRef.invalid && passwordRef.touched" class="error">Senha é obrigatória.</div>
+
           <button type="submit">Entrar</button>
 
-          <p class="signup">Não tem conta?<button type="button" (click)="toggleMode()"
-              class="link-button">Cadastre-se</button></p>
+          <p class="signup">Não tem conta?
+            <button type="button" (click)="toggleMode()" class="link-button">Cadastre-se</button>
+          </p>
         </form>
+
       </div>
     </div>
 
     <div class="register-container" *ngIf="isRegistering">
       <div class="form-section">
         <h2>Criar conta</h2>
-        <form (ngSubmit)="register()">
+        <form #form="ngForm" (ngSubmit)="register()">
           <label for="register-name">Usuário</label>
-          <input type="text" id="register-name" [(ngModel)]="registerName" name="registerName"
-            placeholder="Nome de usuário" required />
+          <input type="text" id="register-name" [(ngModel)]="registerName" name="registerName" required #registerNameRef="ngModel" placeholder="Nome de usuário" />
+          <div *ngIf="registerNameRef.invalid && registerNameRef.touched" class="error">Usuário é obrigatório.</div>
 
           <label for="name">Nome completo</label>
-          <input type="text" id="name" [(ngModel)]="fullName" name="registerName" placeholder="Seu nome" required />
-          <label for="telephone">Telefone</label>
+          <input type="text" id="name" [(ngModel)]="fullName" name="fullName" required #fullNameRef="ngModel" placeholder="Seu nome" />
+          <div *ngIf="fullNameRef.invalid && fullNameRef.touched" class="error">Nome completo é obrigatório.</div>
 
-          <input type="text" id="telephone" [(ngModel)]="registerTelephone" name="registerTelephone"
-            placeholder="Seu número" mask="(00) 00000-0000" required />
+          <label for="telephone">Telefone</label>
+          <input type="text" id="telephone" [(ngModel)]="registerTelephone" name="registerTelephone" required #telephoneRef="ngModel" placeholder="Seu número" mask="(00) 00000-0000" />
+          <div *ngIf="telephoneRef.invalid && telephoneRef.touched" class="error">Telefone é obrigatório.</div>
 
           <label for="register-email">E-mail</label>
-          <input type="email" id="register-email" [(ngModel)]="registerEmail" name="registerEmail"
-            placeholder="seu@email.com" required />
+          <input type="email" id="register-email" [(ngModel)]="registerEmail" name="registerEmail" required #emailRef="ngModel" placeholder="seu@email.com" />
+          <div *ngIf="emailRef.invalid && emailRef.touched" class="error">E-mail válido é obrigatório.</div>
 
           <label for="register-password">Senha</label>
-          <input type="password" id="register-password" [(ngModel)]="registerPassword" name="registerPassword"
-            placeholder="Crie uma senha" required />
+          <input type="password" id="register-password" [(ngModel)]="registerPassword" name="registerPassword" required #passwordRef="ngModel" placeholder="Crie uma senha" />
+          <div *ngIf="passwordRef.invalid && passwordRef.touched" class="error">Senha é obrigatória.</div>
 
           <label for="confirm-password">Confirmar senha</label>
-          <input type="password" id="confirm-password" [(ngModel)]="confirmPassword" name="confirmPassword"
-            placeholder="Repita a senha" required />
-
+          <input type="password" id="confirm-password" [(ngModel)]="confirmPassword" name="confirmPassword" required #confirmPasswordRef="ngModel" placeholder="Repita a senha" />
+          <div *ngIf="confirmPasswordRef.invalid && confirmPasswordRef.touched" class="error">Confirmação de senha é obrigatória.</div>
+          <div *ngIf="confirmPassword !== registerPassword && confirmPasswordRef.touched" class="error">As senhas não coincidem.</div>
 
           <label class="checkbox-container">
-            <input type="checkbox" [(ngModel)]="consentLGPD" name="consentLGPD" required />
+            <input type="checkbox" [(ngModel)]="consentLGPD" name="consentLGPD" required #consentLGPDRef="ngModel" />
             <span>
               Li e concordo com a
-              <a href="https://projeto-final-l0nusuhw2-paulos-projects-6791c6fb.vercel.app/politica-de-privacidade"
-                target="_blank">Política de Privacidade</a>
+              <a href="https://projeto-final-l0nusuhw2-paulos-projects-6791c6fb.vercel.app/politica-de-privacidade" target="_blank">Política de Privacidade</a>
               e autorizo o uso dos meus dados conforme a LGPD.
             </span>
           </label>
+          <div *ngIf="consentLGPDRef.invalid && consentLGPDRef.touched" class="error">Você deve concordar com a LGPD.</div>
 
           <button type="submit">Cadastrar</button>
 
-
-          <p class="login">Já tem uma conta? <button type="button" (click)="toggleMode()"
-              class="link-button">Entrar</button></p>
+          <p class="login">Já tem uma conta? <button type="button" (click)="toggleMode()" class="link-button">Entrar</button></p>
         </form>
+
       </div>
     </div>
   </div>

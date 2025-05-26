@@ -149,6 +149,13 @@ $font-secondary: "Cabin", sans-serif;
       }
     }
 
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 2px;
+    }
+
+
     button {
       background-color: $accent;
       color: white;
