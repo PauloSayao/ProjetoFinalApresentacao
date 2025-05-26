@@ -25,6 +25,7 @@ export class RelatorioComponent implements OnInit {
   buscarPedidos() {
     this.orderService.getPedidos().subscribe({
       next: (res) => {
+        console.log('Pedidos recebidos no relatório:', res);
         this.pedidos = res.map(p => ({
           ...p,
           total: p.produtos.reduce((sum: number, prod: any) => sum + prod.price * prod.quantity, 0)

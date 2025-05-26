@@ -143,8 +143,10 @@ app.post("/pedidos", (req, res) => {
     produtos,
     nome,
     telefone,
-    pagamento
+    pagamento,
+    entregue: false
   };
+
 
   pedidosSalvos.push(novoPedido);
   return res.status(201).json({ message: "Pedido salvo com sucesso!" });
@@ -174,3 +176,18 @@ app.delete("/pedidos", (req, res) => {
 app.listen(3001, () => {
   console.log("API running on http://localhost:3001/");
 });
+
+app.patch("/pedidos/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const pedido = pedidosSalvos.find(p => p.id === id);
+
+  if (!pedido) {
+    return res.status(404).json({ message: "Pedido não encontrado!" });
+  }
+
+  // Atualiza campos parciais (como entregue)
+  Object.assign(pedido, req.body);
+
+  return res.status(200).json({ message: "Pedido atualizado com sucesso!", pedido });
+});
+

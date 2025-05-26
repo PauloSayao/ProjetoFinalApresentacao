@@ -36,10 +36,8 @@
             {{ p.name }} - {{ p.quantity }} x {{ p.price | currency }}
           </li>
         </ul>
-        <button (click)="removerPedido(pedido.id)">Entregue</button>
+        <button (click)="marcarComoEntregue(pedido.id)">Entregue</button>
       </div>
-
-      <button (click)="limparPedidos()">Limpar Todos os Pedidos</button>
     </section>
   </main>
 </div>
